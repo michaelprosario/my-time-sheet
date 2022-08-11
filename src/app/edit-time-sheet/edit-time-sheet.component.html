@@ -10,10 +10,8 @@
 <hr>
 <button (click)="onAddEntry()">Add entry</button>
 <hr>
-<form>
-  <div class="form-group">
-    <label for="exampleInputEmail1">Week ending</label>
-    <input type="date" class="form-control" id="txtWeekEnd" placeholder="Enter week ending">    
-  </div>
-  
-</form>
+
+<div class="form-group">
+  <label for="exampleInputEmail1">Week ending</label>
+  <input type="date" class="form-control" id="txtWeekEnd" placeholder="Enter week ending" [(ngModel)]="timeSheet.weekEnding">    
+</div>  
