@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { TimeSheet } from '../core/entities/entities';
+import { TimeEntry, TimeSheet } from '../core/entities/entities';
 import { v4 as uuidv4 } from 'uuid';
 
 @Component({
@@ -10,6 +10,7 @@ import { v4 as uuidv4 } from 'uuid';
 export class EditTimeSheetComponent implements OnInit {
 
   timeSheet: TimeSheet;
+  currentTimeEntry: TimeEntry = new TimeEntry();
   getUserId(){
     return "user";
   }
@@ -59,7 +60,15 @@ export class EditTimeSheetComponent implements OnInit {
 
   onAddEntry()
   {
-
+    let timeEntry = new TimeEntry();
+    timeEntry.createdAt = Date.now();
+    timeEntry.createdBy = this.getUserId();
+    let currentDate = new Date();
+    let strCurrentDate: string = currentDate.toISOString().split('T')[0];
+    timeEntry.date = strCurrentDate;
+    timeEntry.id = uuidv4();
+    this.currentTimeEntry = timeEntry;
+    
   }
 
 }
