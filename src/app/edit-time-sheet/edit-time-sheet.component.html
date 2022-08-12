@@ -8,4 +8,27 @@
   <input type="date" class="form-control" id="txtWeekEnd" placeholder="Enter week ending" [(ngModel)]="timeSheet.weekEnding">    
 </div>  
 <hr>
-<app-edit-time-entry [timeEntry]="currentTimeEntry"></app-edit-time-entry>
+<app-edit-time-entry [timeEntry]="currentTimeEntry" (onRecordSaved)="onRecordSaved($event)"></app-edit-time-entry>
+
+<table width="100%" border="1">
+  <tr>
+    <td>projectId</td>
+    <td>storyId</td>
+    <td>date</td>
+    <td>startTime</td>
+    <td>endTime</td>
+    <td>hours</td>
+    <td>notes</td>
+  </tr>
+  <tr *ngFor="let record of timeSheet.entries">
+    <td>{{ record.projectId }}</td>
+    <td>{{ record.storyId }}</td>
+    <td>{{ record.date }}</td>
+    <td>{{ record.startTime }}</td>
+    <td>{{ record.endTime }}</td>
+    <td>{{ record.hours }}</td>
+    <td>{{ record.notes }}</td>
+  </tr>
+
+
+</table>

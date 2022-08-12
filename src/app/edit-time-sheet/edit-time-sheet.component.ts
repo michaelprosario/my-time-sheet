@@ -23,7 +23,6 @@ export class EditTimeSheetComponent implements OnInit {
     this.makeNewTimeSheet();
   }
 
-  // 2022-08-12
   getWeekEndingDate(){
     // get current date
     let currentDate = new Date();
@@ -46,6 +45,16 @@ export class EditTimeSheetComponent implements OnInit {
 
     let response = currentDate.toISOString().split('T')[0];
     return response;
+  }
+
+  onRecordSaved(newRecord: TimeEntry){
+    const results = this.timeSheet.entries.filter(r => r.id === newRecord.id)
+    if(results.length === 0)
+    {
+      this.timeSheet.entries.push(newRecord);
+    }
+
+    this.currentTimeEntry = undefined;
   }
 
   private makeNewTimeSheet() {

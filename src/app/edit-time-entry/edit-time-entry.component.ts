@@ -52,6 +52,8 @@ export class EditTimeEntryComponent implements OnInit {
       return;
     }
 
+    this.status = "Record saved";
+
     this.onRecordSaved.emit(this.timeEntry);
   }
 

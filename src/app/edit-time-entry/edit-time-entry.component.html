@@ -20,11 +20,11 @@
 </div>
 <div class="form-group">
   <label for="txtDate">Time start</label>
-  <input type="time" class="form-control" id="txtStart" [(ngModel)]="timeEntry.startTime">
+  <input type="text" class="form-control" id="txtStart" [(ngModel)]="timeEntry.startTime">
 </div>
 <div class="form-group">
   <label for="txtDate">Time end</label>
-  <input type="time" class="form-control" id="txtEnd" [(ngModel)]="timeEntry.endTime">
+  <input type="text" class="form-control" id="txtEnd" [(ngModel)]="timeEntry.endTime">
 </div>
 <div class="form-group">
   <label for="txtHours">Hours</label>
@@ -32,7 +32,7 @@
 </div>
 <div class="form-group">
   <label for="txtNotes">Notes</label>
-  <input type="number" class="form-control" id="txtNotes" [(ngModel)]="timeEntry.notes">
+  <input type="text" class="form-control" id="txtNotes" [(ngModel)]="timeEntry.notes">
 </div>
 
 <button (click)="onSave()">Save</button>
