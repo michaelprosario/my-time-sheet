@@ -51,6 +51,13 @@ export class EditTimeSheetComponent implements OnInit {
     this.currentTimeEntry = timeEntry;
   }
 
+  onDeleteEntry(timeEntry: TimeEntry){
+    if(confirm("Press OK to delete record")){
+      const recordToDelete = this.timeSheet.entries.findIndex(r => r.id === timeEntry.id);
+      this.timeSheet.entries.splice(recordToDelete, 1);
+    }
+  }
+
   onRecordSaved(newRecord: TimeEntry){
     const results = this.timeSheet.entries.filter(r => r.id === newRecord.id)
     if(results.length === 0)

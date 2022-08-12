@@ -1,5 +1,9 @@
+
 <div *ngIf="timeEntry">
-<div class="alert alert-warning" role="alert" *ngIf="formErrors.length === 0">
+<hr>
+  <h3>Time Entry</h3>
+<hr>
+  <div class="alert alert-warning" role="alert" *ngIf="formErrors.length === 0">
   {{ status }}
 </div>
 <div class="alert alert-danger" role="alert" *ngIf="formErrors.length > 0">

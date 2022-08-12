@@ -1,7 +1,6 @@
 <h3>Time sheet</h3>
 <hr>
 <button (click)="onAddEntry()">Add entry</button>
-<hr>
 
 <div class="form-group">
   <label for="exampleInputEmail1">Week ending</label>
@@ -21,7 +20,10 @@
     <td>Notes</td>
   </tr>
   <tr *ngFor="let record of timeSheet.entries">
-    <td><button (click)="onEditEntry(record)">Edit</button></td>
+    <td>
+      <button (click)="onEditEntry(record)">Edit</button>
+      <button (click)="onDeleteEntry(record)">Delete</button>
+    </td>
     <td>{{ record.projectId }}</td>
     <td>{{ record.storyId }}</td>
     <td>{{ record.date }}</td>
@@ -31,5 +33,5 @@
     <td>{{ record.notes }}</td>
   </tr>
 </table>
-
+<br><br><br>
 <app-edit-time-entry [timeEntry]="currentTimeEntry" (onRecordSaved)="onRecordSaved($event)"></app-edit-time-entry>
