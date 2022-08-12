@@ -38,6 +38,14 @@ export class EditTimeEntryComponent implements OnInit {
     this.status = "Add time entry"
   }
 
+  onNewRecordStart(){
+    this.status = "Add time entry";
+  }
+
+  onUpdateRecordStart(){
+    this.status = "Update time entry"
+  }
+
   onSave()
   {
     this.formErrors = [];

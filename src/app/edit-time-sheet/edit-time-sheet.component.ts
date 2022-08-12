@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { TimeEntry, TimeSheet } from '../core/entities/entities';
 import { v4 as uuidv4 } from 'uuid';
+import { EditTimeEntryComponent } from '../edit-time-entry/edit-time-entry.component';
 
 @Component({
   selector: 'app-edit-time-sheet',
@@ -11,6 +12,7 @@ export class EditTimeSheetComponent implements OnInit {
 
   timeSheet: TimeSheet;
   currentTimeEntry: TimeEntry | undefined;
+  @ViewChild('editTimeEntry') editTimeEntry : EditTimeEntryComponent | undefined;
   getUserId(){
     return "user";
   }
@@ -49,6 +51,7 @@ export class EditTimeSheetComponent implements OnInit {
 
   onEditEntry(timeEntry: TimeEntry){
     this.currentTimeEntry = timeEntry;
+    this.editTimeEntry?.onUpdateRecordStart();
   }
 
   onDeleteEntry(timeEntry: TimeEntry){
@@ -92,6 +95,8 @@ export class EditTimeSheetComponent implements OnInit {
     timeEntry.date = strCurrentDate;
     timeEntry.id = uuidv4();
     this.currentTimeEntry = timeEntry;
+
+    this.editTimeEntry?.onNewRecordStart();
   }
 
 }
