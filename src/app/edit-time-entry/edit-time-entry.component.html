@@ -1,7 +1,10 @@
 
 <div *ngIf="timeEntry">
 <hr>
-  <h3>Time Entry</h3>
+<h3>Time Entry</h3>
+<button (click)="onSave()" type="button" class="btn btn-primary">Save</button>&nbsp;
+<button (click)="onClose()" type="button" class="btn btn-primary">Close</button>
+
 <hr>
   <div class="alert alert-warning" role="alert" *ngIf="formErrors.length === 0">
   {{ status }}
@@ -39,5 +42,7 @@
   <input type="text" class="form-control" id="txtNotes" [(ngModel)]="timeEntry.notes">
 </div>
 
-<button (click)="onSave()">Save</button>
+<button (click)="onSave()" type="button" class="btn btn-primary">Save</button>&nbsp;
+<button (click)="onClose()" type="button" class="btn btn-primary">Close</button>
+
 </div>

@@ -58,6 +58,10 @@ export class EditTimeSheetComponent implements OnInit {
     }
   }
 
+  onClosed(timeEntry: TimeEntry){
+    this.currentTimeEntry = undefined;
+  }
+
   onRecordSaved(newRecord: TimeEntry){
     const results = this.timeSheet.entries.filter(r => r.id === newRecord.id)
     if(results.length === 0)

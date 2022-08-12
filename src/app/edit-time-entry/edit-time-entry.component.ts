@@ -26,6 +26,8 @@ export class EditTimeEntryComponent implements OnInit {
   @Input()
   timeEntry!: TimeEntry | undefined;
   @Output() onRecordSaved = new EventEmitter<TimeEntry>();
+  @Output() onClosed = new EventEmitter<TimeEntry>();
+
   status: string = "";
   formErrors: Array<string> = [];
   constructor() { 
@@ -38,7 +40,6 @@ export class EditTimeEntryComponent implements OnInit {
 
   onSave()
   {
-
     this.formErrors = [];
     let validator = new TimeEntryValidator();
     if(!this.timeEntry){
@@ -55,6 +56,10 @@ export class EditTimeEntryComponent implements OnInit {
     this.status = "Record saved";
 
     this.onRecordSaved.emit(this.timeEntry);
+  }
+
+  onClose(){
+    this.onClosed.emit(this.timeEntry);
   }
 
 }
