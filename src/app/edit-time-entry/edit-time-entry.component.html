@@ -1,41 +1,39 @@
-<div class="alert alert-warning" role="alert">
- {{ status }}
+<div *ngIf="timeEntry">
+<div class="alert alert-warning" role="alert" *ngIf="formErrors.length === 0">
+  {{ status }}
+</div>
+<div class="alert alert-danger" role="alert" *ngIf="formErrors.length > 0">
+  <li *ngFor="let error of formErrors">{{ error }}</li>
 </div>
 
 <div class="form-group">
   <label for="txtProject">Project</label>
-  <input type="text" class="form-control" id="txtNotes" [(ngModel)]="timeEntry.projectId" >  
+  <input type="text" class="form-control" id="txtNotes" [(ngModel)]="timeEntry.projectId">
 </div>
 <div class="form-group">
   <label for="txtStory">Story</label>
-  <input type="text" class="form-control" id="txtStory" [(ngModel)]="timeEntry.storyId" >  
+  <input type="text" class="form-control" id="txtStory" [(ngModel)]="timeEntry.storyId">
 </div>
 <div class="form-group">
   <label for="txtDate">Date</label>
-  <input type="date" class="form-control" id="txtDate" [(ngModel)]="timeEntry.date" >  
+  <input type="date" class="form-control" id="txtDate" [(ngModel)]="timeEntry.date">
 </div>
 <div class="form-group">
   <label for="txtDate">Time start</label>
-  <input type="time" class="form-control" id="txtStart" [(ngModel)]="timeEntry.startTime" >  
+  <input type="time" class="form-control" id="txtStart" [(ngModel)]="timeEntry.startTime">
 </div>
 <div class="form-group">
   <label for="txtDate">Time end</label>
-  <input type="time" class="form-control" id="txtEnd" [(ngModel)]="timeEntry.endTime" >  
+  <input type="time" class="form-control" id="txtEnd" [(ngModel)]="timeEntry.endTime">
 </div>
 <div class="form-group">
   <label for="txtHours">Hours</label>
-  <input type="number" class="form-control" id="txtHours" [(ngModel)]="timeEntry.hours" >  
+  <input type="number" class="form-control" id="txtHours" [(ngModel)]="timeEntry.hours">
 </div>
 <div class="form-group">
   <label for="txtNotes">Notes</label>
-  <input type="number" class="form-control" id="txtNotes" [(ngModel)]="timeEntry.notes" >  
+  <input type="number" class="form-control" id="txtNotes" [(ngModel)]="timeEntry.notes">
 </div>
 
-{{ timeEntry | json }}
-
-
-todo
-"updatedAt": 0, 
-"updatedBy": "" 
-"createdAt": 1660191175520, 
-"createdBy": "user", 
+<button (click)="onSave()">Save</button>
+</div>

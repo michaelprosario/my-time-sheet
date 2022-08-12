@@ -10,7 +10,7 @@ import { v4 as uuidv4 } from 'uuid';
 export class EditTimeSheetComponent implements OnInit {
 
   timeSheet: TimeSheet;
-  currentTimeEntry: TimeEntry = new TimeEntry();
+  currentTimeEntry: TimeEntry | undefined;
   getUserId(){
     return "user";
   }
@@ -68,7 +68,6 @@ export class EditTimeSheetComponent implements OnInit {
     timeEntry.date = strCurrentDate;
     timeEntry.id = uuidv4();
     this.currentTimeEntry = timeEntry;
-    
   }
 
 }
