@@ -1,7 +1,8 @@
 <h3>Time sheet</h3>
 <hr>
-<button (click)="onAddEntry()" type="button" class="btn btn-primary">Add entry</button>&nbsp;
-<button (click)="onSaveTimeSheet()" type="button" class="btn btn-primary">Save time sheet</button>
+<button (click)="onAddEntry()" type="button" class="btn btn-primary">Add entry</button> |
+<button (click)="onSaveTimeSheet()" type="button" class="btn btn-primary">Save time sheet</button> | 
+<button (click)="onTimeSheets()" type="button" class="btn btn-primary">Time Sheets</button>&nbsp;
 
 <div class="form-group">
   <label for="exampleInputEmail1">Week ending</label>
@@ -10,8 +11,7 @@
 
 
 <table width="100%" border="1">
-  <tr>
-    <td>&nbsp;</td>
+  <tr>    
     <td>Project</td>
     <td>Story</td>
     <td>Date</td>
@@ -19,12 +19,9 @@
     <td>End Time</td>
     <td>Hours</td>
     <td>Notes</td>
+    <td>&nbsp;</td>
   </tr>
   <tr *ngFor="let record of timeSheet.entries">
-    <td>
-      <button (click)="onEditEntry(record)" type="button" class="btn btn-primary">Edit</button>&nbsp;
-      <button (click)="onDeleteEntry(record)" type="button" class="btn btn-primary">Delete</button>
-    </td>
     <td>{{ record.projectId }}</td>
     <td>{{ record.storyId }}</td>
     <td>{{ record.date }}</td>
@@ -32,6 +29,10 @@
     <td>{{ record.endTime }}</td>
     <td>{{ record.hours }}</td>
     <td>{{ record.notes }}</td>
+    <td>
+      <button (click)="onEditEntry(record)" type="button" class="btn btn-primary">Edit</button>|
+      <button (click)="onDeleteEntry(record)" type="button" class="btn btn-primary">Delete</button>
+    </td>    
   </tr>
 </table>
 <br>

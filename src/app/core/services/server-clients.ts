@@ -15,7 +15,7 @@ export class InspectionTemplatesClient {
 
     constructor(baseUrl?: string, http?: { fetch(url: RequestInfo, init?: RequestInit): Promise<Response> }) {
         this.http = http ? http : window as any;
-        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "http://localhost:7000";
+        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://localhost:7001";
     }
 
     storeDocument(command: StoreDocumentCommandOfInspectionTemplate): Promise<StoreDocumentResponseOfInspectionTemplate> {
@@ -292,7 +292,7 @@ export class MediaFilesClient {
 
     constructor(baseUrl?: string, http?: { fetch(url: RequestInfo, init?: RequestInit): Promise<Response> }) {
         this.http = http ? http : window as any;
-        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "http://localhost:7000";
+        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://localhost:7001";
     }
 
     storeDocument(command: StoreDocumentCommandOfMediaFile): Promise<StoreDocumentResponseOfMediaFile> {
@@ -563,7 +563,7 @@ export class TimeSheetsClient {
 
     constructor(baseUrl?: string, http?: { fetch(url: RequestInfo, init?: RequestInit): Promise<Response> }) {
         this.http = http ? http : window as any;
-        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "http://localhost:7000";
+        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://localhost:7001";
     }
 
     storeDocument(command: StoreDocumentCommandOfTimeSheet): Promise<StoreDocumentResponseOfTimeSheet> {
@@ -604,8 +604,46 @@ export class TimeSheetsClient {
         return Promise.resolve<StoreDocumentResponseOfTimeSheet>(null as any);
     }
 
-    get(query: GetDocumentsQuery): Promise<GetDocumentsResponseOfTimeSheet> {
+    getList(query: GetDocumentsQuery): Promise<GetDocumentsResponseOfTimeSheet> {
         let url_ = this.baseUrl + "/api/TimeSheets/v1/GetList";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(query);
+
+        let options_: RequestInit = {
+            body: content_,
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "Accept": "application/json"
+            }
+        };
+
+        return this.http.fetch(url_, options_).then((_response: Response) => {
+            return this.processGetList(_response);
+        });
+    }
+
+    protected processGetList(response: Response): Promise<GetDocumentsResponseOfTimeSheet> {
+        const status = response.status;
+        let _headers: any = {}; if (response.headers && response.headers.forEach) { response.headers.forEach((v: any, k: any) => _headers[k] = v); };
+        if (status === 200) {
+            return response.text().then((_responseText) => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = GetDocumentsResponseOfTimeSheet.fromJS(resultData200);
+            return result200;
+            });
+        } else if (status !== 200 && status !== 204) {
+            return response.text().then((_responseText) => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            });
+        }
+        return Promise.resolve<GetDocumentsResponseOfTimeSheet>(null as any);
+    }
+
+    get(query: GetDocumentQuery): Promise<GetDocumentResponseOfTimeSheet> {
+        let url_ = this.baseUrl + "/api/TimeSheets/v1/Get";
         url_ = url_.replace(/[?&]$/, "");
 
         const content_ = JSON.stringify(query);
@@ -624,45 +662,7 @@ export class TimeSheetsClient {
         });
     }
 
-    protected processGet(response: Response): Promise<GetDocumentsResponseOfTimeSheet> {
-        const status = response.status;
-        let _headers: any = {}; if (response.headers && response.headers.forEach) { response.headers.forEach((v: any, k: any) => _headers[k] = v); };
-        if (status === 200) {
-            return response.text().then((_responseText) => {
-            let result200: any = null;
-            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            result200 = GetDocumentsResponseOfTimeSheet.fromJS(resultData200);
-            return result200;
-            });
-        } else if (status !== 200 && status !== 204) {
-            return response.text().then((_responseText) => {
-            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
-            });
-        }
-        return Promise.resolve<GetDocumentsResponseOfTimeSheet>(null as any);
-    }
-
-    getInspectionTemplate(query: GetDocumentQuery): Promise<GetDocumentResponseOfTimeSheet> {
-        let url_ = this.baseUrl + "/api/TimeSheets/v1/Get";
-        url_ = url_.replace(/[?&]$/, "");
-
-        const content_ = JSON.stringify(query);
-
-        let options_: RequestInit = {
-            body: content_,
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-                "Accept": "application/json"
-            }
-        };
-
-        return this.http.fetch(url_, options_).then((_response: Response) => {
-            return this.processGetInspectionTemplate(_response);
-        });
-    }
-
-    protected processGetInspectionTemplate(response: Response): Promise<GetDocumentResponseOfTimeSheet> {
+    protected processGet(response: Response): Promise<GetDocumentResponseOfTimeSheet> {
         const status = response.status;
         let _headers: any = {}; if (response.headers && response.headers.forEach) { response.headers.forEach((v: any, k: any) => _headers[k] = v); };
         if (status === 200) {
@@ -680,7 +680,7 @@ export class TimeSheetsClient {
         return Promise.resolve<GetDocumentResponseOfTimeSheet>(null as any);
     }
 
-    deleteInspectionTemplate(command: DeleteDocumentCommand): Promise<AppResponse> {
+    delete(command: DeleteDocumentCommand): Promise<AppResponse> {
         let url_ = this.baseUrl + "/api/TimeSheets/v1/Delete";
         url_ = url_.replace(/[?&]$/, "");
 
@@ -696,11 +696,11 @@ export class TimeSheetsClient {
         };
 
         return this.http.fetch(url_, options_).then((_response: Response) => {
-            return this.processDeleteInspectionTemplate(_response);
+            return this.processDelete(_response);
         });
     }
 
-    protected processDeleteInspectionTemplate(response: Response): Promise<AppResponse> {
+    protected processDelete(response: Response): Promise<AppResponse> {
         const status = response.status;
         let _headers: any = {}; if (response.headers && response.headers.forEach) { response.headers.forEach((v: any, k: any) => _headers[k] = v); };
         if (status === 200) {

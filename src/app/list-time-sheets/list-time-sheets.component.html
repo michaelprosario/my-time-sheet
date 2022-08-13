@@ -1,1 +1,14 @@
-<p>list-time-sheets works!</p>
+<div *ngIf="records">
+<h1>My Timesheets</h1>
+<button (click)="onNewRecord()">Add time sheet</button>
+<table>
+  <tr>
+    <td>Week Ending</td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr *ngFor="let record of records">
+    <td>{{record.weekEnding}}</td>
+    <td><button (click)="onEditRecord(record)">Edit</button></td>
+  </tr>  
+</table>
+</div>
