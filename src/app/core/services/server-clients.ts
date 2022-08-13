@@ -8,283 +8,6 @@
 /* eslint-disable */
 // ReSharper disable InconsistentNaming
 
-export class InspectionTemplatesClient {
-    private http: { fetch(url: RequestInfo, init?: RequestInit): Promise<Response> };
-    private baseUrl: string;
-    protected jsonParseReviver: ((key: string, value: any) => any) | undefined = undefined;
-
-    constructor(baseUrl?: string, http?: { fetch(url: RequestInfo, init?: RequestInit): Promise<Response> }) {
-        this.http = http ? http : window as any;
-        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://localhost:7001";
-    }
-
-    storeDocument(command: StoreDocumentCommandOfInspectionTemplate): Promise<StoreDocumentResponseOfInspectionTemplate> {
-        let url_ = this.baseUrl + "/api/InspectionTemplates/v1/StoreDocument";
-        url_ = url_.replace(/[?&]$/, "");
-
-        const content_ = JSON.stringify(command);
-
-        let options_: RequestInit = {
-            body: content_,
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-                "Accept": "application/json"
-            }
-        };
-
-        return this.http.fetch(url_, options_).then((_response: Response) => {
-            return this.processStoreDocument(_response);
-        });
-    }
-
-    protected processStoreDocument(response: Response): Promise<StoreDocumentResponseOfInspectionTemplate> {
-        const status = response.status;
-        let _headers: any = {}; if (response.headers && response.headers.forEach) { response.headers.forEach((v: any, k: any) => _headers[k] = v); };
-        if (status === 200) {
-            return response.text().then((_responseText) => {
-            let result200: any = null;
-            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            result200 = StoreDocumentResponseOfInspectionTemplate.fromJS(resultData200);
-            return result200;
-            });
-        } else if (status !== 200 && status !== 204) {
-            return response.text().then((_responseText) => {
-            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
-            });
-        }
-        return Promise.resolve<StoreDocumentResponseOfInspectionTemplate>(null as any);
-    }
-
-    getInspectionTemplates(query: GetInspectionTemplatesQuery): Promise<GetDocumentsResponseOfInspectionTemplate> {
-        let url_ = this.baseUrl + "/api/InspectionTemplates/v1/GetInspectionTemplates";
-        url_ = url_.replace(/[?&]$/, "");
-
-        const content_ = JSON.stringify(query);
-
-        let options_: RequestInit = {
-            body: content_,
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-                "Accept": "application/json"
-            }
-        };
-
-        return this.http.fetch(url_, options_).then((_response: Response) => {
-            return this.processGetInspectionTemplates(_response);
-        });
-    }
-
-    protected processGetInspectionTemplates(response: Response): Promise<GetDocumentsResponseOfInspectionTemplate> {
-        const status = response.status;
-        let _headers: any = {}; if (response.headers && response.headers.forEach) { response.headers.forEach((v: any, k: any) => _headers[k] = v); };
-        if (status === 200) {
-            return response.text().then((_responseText) => {
-            let result200: any = null;
-            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            result200 = GetDocumentsResponseOfInspectionTemplate.fromJS(resultData200);
-            return result200;
-            });
-        } else if (status !== 200 && status !== 204) {
-            return response.text().then((_responseText) => {
-            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
-            });
-        }
-        return Promise.resolve<GetDocumentsResponseOfInspectionTemplate>(null as any);
-    }
-
-    getMediaGroups(query: GetDocumentQuery): Promise<GetMediaGroupsResponse> {
-        let url_ = this.baseUrl + "/api/InspectionTemplates/v1/GetMediaGroups";
-        url_ = url_.replace(/[?&]$/, "");
-
-        const content_ = JSON.stringify(query);
-
-        let options_: RequestInit = {
-            body: content_,
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-                "Accept": "application/json"
-            }
-        };
-
-        return this.http.fetch(url_, options_).then((_response: Response) => {
-            return this.processGetMediaGroups(_response);
-        });
-    }
-
-    protected processGetMediaGroups(response: Response): Promise<GetMediaGroupsResponse> {
-        const status = response.status;
-        let _headers: any = {}; if (response.headers && response.headers.forEach) { response.headers.forEach((v: any, k: any) => _headers[k] = v); };
-        if (status === 200) {
-            return response.text().then((_responseText) => {
-            let result200: any = null;
-            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            result200 = GetMediaGroupsResponse.fromJS(resultData200);
-            return result200;
-            });
-        } else if (status !== 200 && status !== 204) {
-            return response.text().then((_responseText) => {
-            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
-            });
-        }
-        return Promise.resolve<GetMediaGroupsResponse>(null as any);
-    }
-
-    getInspectionTemplate(query: GetDocumentQuery): Promise<GetDocumentResponseOfInspectionTemplate> {
-        let url_ = this.baseUrl + "/api/InspectionTemplates/v1/GetInspectionTemplate";
-        url_ = url_.replace(/[?&]$/, "");
-
-        const content_ = JSON.stringify(query);
-
-        let options_: RequestInit = {
-            body: content_,
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-                "Accept": "application/json"
-            }
-        };
-
-        return this.http.fetch(url_, options_).then((_response: Response) => {
-            return this.processGetInspectionTemplate(_response);
-        });
-    }
-
-    protected processGetInspectionTemplate(response: Response): Promise<GetDocumentResponseOfInspectionTemplate> {
-        const status = response.status;
-        let _headers: any = {}; if (response.headers && response.headers.forEach) { response.headers.forEach((v: any, k: any) => _headers[k] = v); };
-        if (status === 200) {
-            return response.text().then((_responseText) => {
-            let result200: any = null;
-            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            result200 = GetDocumentResponseOfInspectionTemplate.fromJS(resultData200);
-            return result200;
-            });
-        } else if (status !== 200 && status !== 204) {
-            return response.text().then((_responseText) => {
-            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
-            });
-        }
-        return Promise.resolve<GetDocumentResponseOfInspectionTemplate>(null as any);
-    }
-
-    deleteInspectionTemplate(command: DeleteDocumentCommand): Promise<AppResponse> {
-        let url_ = this.baseUrl + "/api/InspectionTemplates/v1/DeleteInspectionTemplate";
-        url_ = url_.replace(/[?&]$/, "");
-
-        const content_ = JSON.stringify(command);
-
-        let options_: RequestInit = {
-            body: content_,
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-                "Accept": "application/json"
-            }
-        };
-
-        return this.http.fetch(url_, options_).then((_response: Response) => {
-            return this.processDeleteInspectionTemplate(_response);
-        });
-    }
-
-    protected processDeleteInspectionTemplate(response: Response): Promise<AppResponse> {
-        const status = response.status;
-        let _headers: any = {}; if (response.headers && response.headers.forEach) { response.headers.forEach((v: any, k: any) => _headers[k] = v); };
-        if (status === 200) {
-            return response.text().then((_responseText) => {
-            let result200: any = null;
-            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            result200 = AppResponse.fromJS(resultData200);
-            return result200;
-            });
-        } else if (status !== 200 && status !== 204) {
-            return response.text().then((_responseText) => {
-            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
-            });
-        }
-        return Promise.resolve<AppResponse>(null as any);
-    }
-
-    deleteInspectionTemplateStep(command: DeleteDocumentCommand): Promise<AppResponse> {
-        let url_ = this.baseUrl + "/api/InspectionTemplates/v1/DeleteInspectionTemplateStep";
-        url_ = url_.replace(/[?&]$/, "");
-
-        const content_ = JSON.stringify(command);
-
-        let options_: RequestInit = {
-            body: content_,
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-                "Accept": "application/json"
-            }
-        };
-
-        return this.http.fetch(url_, options_).then((_response: Response) => {
-            return this.processDeleteInspectionTemplateStep(_response);
-        });
-    }
-
-    protected processDeleteInspectionTemplateStep(response: Response): Promise<AppResponse> {
-        const status = response.status;
-        let _headers: any = {}; if (response.headers && response.headers.forEach) { response.headers.forEach((v: any, k: any) => _headers[k] = v); };
-        if (status === 200) {
-            return response.text().then((_responseText) => {
-            let result200: any = null;
-            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            result200 = AppResponse.fromJS(resultData200);
-            return result200;
-            });
-        } else if (status !== 200 && status !== 204) {
-            return response.text().then((_responseText) => {
-            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
-            });
-        }
-        return Promise.resolve<AppResponse>(null as any);
-    }
-
-    deleteInspectionTemplateMedia(command: DeleteMediaItemCommand): Promise<AppResponse> {
-        let url_ = this.baseUrl + "/api/InspectionTemplates/v1/DeleteInspectionTemplateMedia";
-        url_ = url_.replace(/[?&]$/, "");
-
-        const content_ = JSON.stringify(command);
-
-        let options_: RequestInit = {
-            body: content_,
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-                "Accept": "application/json"
-            }
-        };
-
-        return this.http.fetch(url_, options_).then((_response: Response) => {
-            return this.processDeleteInspectionTemplateMedia(_response);
-        });
-    }
-
-    protected processDeleteInspectionTemplateMedia(response: Response): Promise<AppResponse> {
-        const status = response.status;
-        let _headers: any = {}; if (response.headers && response.headers.forEach) { response.headers.forEach((v: any, k: any) => _headers[k] = v); };
-        if (status === 200) {
-            return response.text().then((_responseText) => {
-            let result200: any = null;
-            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            result200 = AppResponse.fromJS(resultData200);
-            return result200;
-            });
-        } else if (status !== 200 && status !== 204) {
-            return response.text().then((_responseText) => {
-            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
-            });
-        }
-        return Promise.resolve<AppResponse>(null as any);
-    }
-}
-
 export class MediaFilesClient {
     private http: { fetch(url: RequestInfo, init?: RequestInit): Promise<Response> };
     private baseUrl: string;
@@ -775,23 +498,23 @@ export interface IAppResponse {
     additionalData?: any | undefined;
 }
 
-export class StoreDocumentResponseOfInspectionTemplate extends AppResponse implements IStoreDocumentResponseOfInspectionTemplate {
-    document?: InspectionTemplate | undefined;
+export class StoreDocumentResponseOfMediaFile extends AppResponse implements IStoreDocumentResponseOfMediaFile {
+    document?: MediaFile | undefined;
 
-    constructor(data?: IStoreDocumentResponseOfInspectionTemplate) {
+    constructor(data?: IStoreDocumentResponseOfMediaFile) {
         super(data);
     }
 
     override init(_data?: any) {
         super.init(_data);
         if (_data) {
-            this.document = _data["document"] ? InspectionTemplate.fromJS(_data["document"]) : <any>undefined;
+            this.document = _data["document"] ? MediaFile.fromJS(_data["document"]) : <any>undefined;
         }
     }
 
-    static override fromJS(data: any): StoreDocumentResponseOfInspectionTemplate {
+    static override fromJS(data: any): StoreDocumentResponseOfMediaFile {
         data = typeof data === 'object' ? data : {};
-        let result = new StoreDocumentResponseOfInspectionTemplate();
+        let result = new StoreDocumentResponseOfMediaFile();
         result.init(data);
         return result;
     }
@@ -804,8 +527,8 @@ export class StoreDocumentResponseOfInspectionTemplate extends AppResponse imple
     }
 }
 
-export interface IStoreDocumentResponseOfInspectionTemplate extends IAppResponse {
-    document?: InspectionTemplate | undefined;
+export interface IStoreDocumentResponseOfMediaFile extends IAppResponse {
+    document?: MediaFile | undefined;
 }
 
 export abstract class BaseEntity implements IBaseEntity {
@@ -870,111 +593,81 @@ export interface IBaseEntity {
     updatedBy?: string | undefined;
 }
 
-export class InspectionTemplate extends BaseEntity implements IInspectionTemplate {
-    name?: string | undefined;
+export class MediaFile extends BaseEntity implements IMediaFile {
+    fileSize!: number;
+    width!: number;
+    height!: number;
+    altText?: string | undefined;
     description?: string | undefined;
-    assetId?: string | undefined;
-    inspectionTemplateStatus!: InspectionTemplateStatus;
-    templateSteps?: InspectionTemplateStep[] | undefined;
-    organizationId!: number;
+    fileName?: string | undefined;
+    tags?: string | undefined;
+    fileType?: string | undefined;
+    title?: string | undefined;
+    parentEntity?: string | undefined;
+    parentEntityId?: string | undefined;
+    blobLink?: string | undefined;
 
-    constructor(data?: IInspectionTemplate) {
+    constructor(data?: IMediaFile) {
         super(data);
     }
 
     override init(_data?: any) {
         super.init(_data);
         if (_data) {
-            this.name = _data["name"];
+            this.fileSize = _data["fileSize"];
+            this.width = _data["width"];
+            this.height = _data["height"];
+            this.altText = _data["altText"];
             this.description = _data["description"];
-            this.assetId = _data["assetId"];
-            this.inspectionTemplateStatus = _data["inspectionTemplateStatus"];
-            if (Array.isArray(_data["templateSteps"])) {
-                this.templateSteps = [] as any;
-                for (let item of _data["templateSteps"])
-                    this.templateSteps!.push(InspectionTemplateStep.fromJS(item));
-            }
-            this.organizationId = _data["organizationId"];
+            this.fileName = _data["fileName"];
+            this.tags = _data["tags"];
+            this.fileType = _data["fileType"];
+            this.title = _data["title"];
+            this.parentEntity = _data["parentEntity"];
+            this.parentEntityId = _data["parentEntityId"];
+            this.blobLink = _data["blobLink"];
         }
     }
 
-    static override fromJS(data: any): InspectionTemplate {
+    static override fromJS(data: any): MediaFile {
         data = typeof data === 'object' ? data : {};
-        let result = new InspectionTemplate();
+        let result = new MediaFile();
         result.init(data);
         return result;
     }
 
     override toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
-        data["name"] = this.name;
+        data["fileSize"] = this.fileSize;
+        data["width"] = this.width;
+        data["height"] = this.height;
+        data["altText"] = this.altText;
         data["description"] = this.description;
-        data["assetId"] = this.assetId;
-        data["inspectionTemplateStatus"] = this.inspectionTemplateStatus;
-        if (Array.isArray(this.templateSteps)) {
-            data["templateSteps"] = [];
-            for (let item of this.templateSteps)
-                data["templateSteps"].push(item.toJSON());
-        }
-        data["organizationId"] = this.organizationId;
+        data["fileName"] = this.fileName;
+        data["tags"] = this.tags;
+        data["fileType"] = this.fileType;
+        data["title"] = this.title;
+        data["parentEntity"] = this.parentEntity;
+        data["parentEntityId"] = this.parentEntityId;
+        data["blobLink"] = this.blobLink;
         super.toJSON(data);
         return data;
     }
 }
 
-export interface IInspectionTemplate extends IBaseEntity {
-    name?: string | undefined;
+export interface IMediaFile extends IBaseEntity {
+    fileSize: number;
+    width: number;
+    height: number;
+    altText?: string | undefined;
     description?: string | undefined;
-    assetId?: string | undefined;
-    inspectionTemplateStatus: InspectionTemplateStatus;
-    templateSteps?: InspectionTemplateStep[] | undefined;
-    organizationId: number;
-}
-
-export enum InspectionTemplateStatus {
-    Unpublished = 1,
-    Published = 20,
-}
-
-export class InspectionTemplateStep extends BaseEntity implements IInspectionTemplateStep {
-    inspectionTemplateId?: string | undefined;
-    name?: string | undefined;
-    description?: string | undefined;
-
-    constructor(data?: IInspectionTemplateStep) {
-        super(data);
-    }
-
-    override init(_data?: any) {
-        super.init(_data);
-        if (_data) {
-            this.inspectionTemplateId = _data["inspectionTemplateId"];
-            this.name = _data["name"];
-            this.description = _data["description"];
-        }
-    }
-
-    static override fromJS(data: any): InspectionTemplateStep {
-        data = typeof data === 'object' ? data : {};
-        let result = new InspectionTemplateStep();
-        result.init(data);
-        return result;
-    }
-
-    override toJSON(data?: any) {
-        data = typeof data === 'object' ? data : {};
-        data["inspectionTemplateId"] = this.inspectionTemplateId;
-        data["name"] = this.name;
-        data["description"] = this.description;
-        super.toJSON(data);
-        return data;
-    }
-}
-
-export interface IInspectionTemplateStep extends IBaseEntity {
-    inspectionTemplateId?: string | undefined;
-    name?: string | undefined;
-    description?: string | undefined;
+    fileName?: string | undefined;
+    tags?: string | undefined;
+    fileType?: string | undefined;
+    title?: string | undefined;
+    parentEntity?: string | undefined;
+    parentEntityId?: string | undefined;
+    blobLink?: string | undefined;
 }
 
 export enum ResponseCode {
@@ -1098,23 +791,23 @@ export interface IRequest {
     userId?: string | undefined;
 }
 
-export class StoreDocumentCommandOfInspectionTemplate extends Request implements IStoreDocumentCommandOfInspectionTemplate {
-    document?: InspectionTemplate | undefined;
+export class StoreDocumentCommandOfMediaFile extends Request implements IStoreDocumentCommandOfMediaFile {
+    document?: MediaFile | undefined;
 
-    constructor(data?: IStoreDocumentCommandOfInspectionTemplate) {
+    constructor(data?: IStoreDocumentCommandOfMediaFile) {
         super(data);
     }
 
     override init(_data?: any) {
         super.init(_data);
         if (_data) {
-            this.document = _data["document"] ? InspectionTemplate.fromJS(_data["document"]) : <any>undefined;
+            this.document = _data["document"] ? MediaFile.fromJS(_data["document"]) : <any>undefined;
         }
     }
 
-    static override fromJS(data: any): StoreDocumentCommandOfInspectionTemplate {
+    static override fromJS(data: any): StoreDocumentCommandOfMediaFile {
         data = typeof data === 'object' ? data : {};
-        let result = new StoreDocumentCommandOfInspectionTemplate();
+        let result = new StoreDocumentCommandOfMediaFile();
         result.init(data);
         return result;
     }
@@ -1127,382 +820,8 @@ export class StoreDocumentCommandOfInspectionTemplate extends Request implements
     }
 }
 
-export interface IStoreDocumentCommandOfInspectionTemplate extends IRequest {
-    document?: InspectionTemplate | undefined;
-}
-
-export class GetDocumentsResponseOfInspectionTemplate extends AppResponse implements IGetDocumentsResponseOfInspectionTemplate {
-    documents?: InspectionTemplate[] | undefined;
-    totalItemCount!: number;
-    pageCount!: number;
-    isFirstPage!: boolean;
-    isLastPage!: boolean;
-    hasNextPage!: boolean;
-    hasPreviousPage!: boolean;
-    firstItemOnPage!: number;
-    lastItemOnPage!: number;
-
-    constructor(data?: IGetDocumentsResponseOfInspectionTemplate) {
-        super(data);
-    }
-
-    override init(_data?: any) {
-        super.init(_data);
-        if (_data) {
-            if (Array.isArray(_data["documents"])) {
-                this.documents = [] as any;
-                for (let item of _data["documents"])
-                    this.documents!.push(InspectionTemplate.fromJS(item));
-            }
-            this.totalItemCount = _data["totalItemCount"];
-            this.pageCount = _data["pageCount"];
-            this.isFirstPage = _data["isFirstPage"];
-            this.isLastPage = _data["isLastPage"];
-            this.hasNextPage = _data["hasNextPage"];
-            this.hasPreviousPage = _data["hasPreviousPage"];
-            this.firstItemOnPage = _data["firstItemOnPage"];
-            this.lastItemOnPage = _data["lastItemOnPage"];
-        }
-    }
-
-    static override fromJS(data: any): GetDocumentsResponseOfInspectionTemplate {
-        data = typeof data === 'object' ? data : {};
-        let result = new GetDocumentsResponseOfInspectionTemplate();
-        result.init(data);
-        return result;
-    }
-
-    override toJSON(data?: any) {
-        data = typeof data === 'object' ? data : {};
-        if (Array.isArray(this.documents)) {
-            data["documents"] = [];
-            for (let item of this.documents)
-                data["documents"].push(item.toJSON());
-        }
-        data["totalItemCount"] = this.totalItemCount;
-        data["pageCount"] = this.pageCount;
-        data["isFirstPage"] = this.isFirstPage;
-        data["isLastPage"] = this.isLastPage;
-        data["hasNextPage"] = this.hasNextPage;
-        data["hasPreviousPage"] = this.hasPreviousPage;
-        data["firstItemOnPage"] = this.firstItemOnPage;
-        data["lastItemOnPage"] = this.lastItemOnPage;
-        super.toJSON(data);
-        return data;
-    }
-}
-
-export interface IGetDocumentsResponseOfInspectionTemplate extends IAppResponse {
-    documents?: InspectionTemplate[] | undefined;
-    totalItemCount: number;
-    pageCount: number;
-    isFirstPage: boolean;
-    isLastPage: boolean;
-    hasNextPage: boolean;
-    hasPreviousPage: boolean;
-    firstItemOnPage: number;
-    lastItemOnPage: number;
-}
-
-export class GetDocumentsQuery extends Request implements IGetDocumentsQuery {
-    first!: number;
-    rows!: number;
-    page!: number;
-    sortField?: string | undefined;
-    sortOrder?: number | undefined;
-
-    constructor(data?: IGetDocumentsQuery) {
-        super(data);
-    }
-
-    override init(_data?: any) {
-        super.init(_data);
-        if (_data) {
-            this.first = _data["first"];
-            this.rows = _data["rows"];
-            this.page = _data["page"];
-            this.sortField = _data["sortField"];
-            this.sortOrder = _data["sortOrder"];
-        }
-    }
-
-    static override fromJS(data: any): GetDocumentsQuery {
-        data = typeof data === 'object' ? data : {};
-        let result = new GetDocumentsQuery();
-        result.init(data);
-        return result;
-    }
-
-    override toJSON(data?: any) {
-        data = typeof data === 'object' ? data : {};
-        data["first"] = this.first;
-        data["rows"] = this.rows;
-        data["page"] = this.page;
-        data["sortField"] = this.sortField;
-        data["sortOrder"] = this.sortOrder;
-        super.toJSON(data);
-        return data;
-    }
-}
-
-export interface IGetDocumentsQuery extends IRequest {
-    first: number;
-    rows: number;
-    page: number;
-    sortField?: string | undefined;
-    sortOrder?: number | undefined;
-}
-
-export class GetInspectionTemplatesQuery extends GetDocumentsQuery implements IGetInspectionTemplatesQuery {
-    searchTerm?: string | undefined;
-
-    constructor(data?: IGetInspectionTemplatesQuery) {
-        super(data);
-    }
-
-    override init(_data?: any) {
-        super.init(_data);
-        if (_data) {
-            this.searchTerm = _data["searchTerm"];
-        }
-    }
-
-    static override fromJS(data: any): GetInspectionTemplatesQuery {
-        data = typeof data === 'object' ? data : {};
-        let result = new GetInspectionTemplatesQuery();
-        result.init(data);
-        return result;
-    }
-
-    override toJSON(data?: any) {
-        data = typeof data === 'object' ? data : {};
-        data["searchTerm"] = this.searchTerm;
-        super.toJSON(data);
-        return data;
-    }
-}
-
-export interface IGetInspectionTemplatesQuery extends IGetDocumentsQuery {
-    searchTerm?: string | undefined;
-}
-
-export class GetMediaGroupsResponse extends AppResponse implements IGetMediaGroupsResponse {
-    mediaGroups?: MediaGroupDto[] | undefined;
-
-    constructor(data?: IGetMediaGroupsResponse) {
-        super(data);
-    }
-
-    override init(_data?: any) {
-        super.init(_data);
-        if (_data) {
-            if (Array.isArray(_data["mediaGroups"])) {
-                this.mediaGroups = [] as any;
-                for (let item of _data["mediaGroups"])
-                    this.mediaGroups!.push(MediaGroupDto.fromJS(item));
-            }
-        }
-    }
-
-    static override fromJS(data: any): GetMediaGroupsResponse {
-        data = typeof data === 'object' ? data : {};
-        let result = new GetMediaGroupsResponse();
-        result.init(data);
-        return result;
-    }
-
-    override toJSON(data?: any) {
-        data = typeof data === 'object' ? data : {};
-        if (Array.isArray(this.mediaGroups)) {
-            data["mediaGroups"] = [];
-            for (let item of this.mediaGroups)
-                data["mediaGroups"].push(item.toJSON());
-        }
-        super.toJSON(data);
-        return data;
-    }
-}
-
-export interface IGetMediaGroupsResponse extends IAppResponse {
-    mediaGroups?: MediaGroupDto[] | undefined;
-}
-
-export class MediaGroupDto implements IMediaGroupDto {
-    id?: string | undefined;
-    items?: MediaGroupItemDto[] | undefined;
-    name?: string | undefined;
-    parentId?: string | undefined;
-    parentObjectType?: string | undefined;
-
-    constructor(data?: IMediaGroupDto) {
-        if (data) {
-            for (var property in data) {
-                if (data.hasOwnProperty(property))
-                    (<any>this)[property] = (<any>data)[property];
-            }
-        }
-    }
-
-    init(_data?: any) {
-        if (_data) {
-            this.id = _data["id"];
-            if (Array.isArray(_data["items"])) {
-                this.items = [] as any;
-                for (let item of _data["items"])
-                    this.items!.push(MediaGroupItemDto.fromJS(item));
-            }
-            this.name = _data["name"];
-            this.parentId = _data["parentId"];
-            this.parentObjectType = _data["parentObjectType"];
-        }
-    }
-
-    static fromJS(data: any): MediaGroupDto {
-        data = typeof data === 'object' ? data : {};
-        let result = new MediaGroupDto();
-        result.init(data);
-        return result;
-    }
-
-    toJSON(data?: any) {
-        data = typeof data === 'object' ? data : {};
-        data["id"] = this.id;
-        if (Array.isArray(this.items)) {
-            data["items"] = [];
-            for (let item of this.items)
-                data["items"].push(item.toJSON());
-        }
-        data["name"] = this.name;
-        data["parentId"] = this.parentId;
-        data["parentObjectType"] = this.parentObjectType;
-        return data;
-    }
-}
-
-export interface IMediaGroupDto {
-    id?: string | undefined;
-    items?: MediaGroupItemDto[] | undefined;
-    name?: string | undefined;
-    parentId?: string | undefined;
-    parentObjectType?: string | undefined;
-}
-
-export class MediaGroupItemDto implements IMediaGroupItemDto {
-    attachmentType?: string | undefined;
-    id?: string | undefined;
-    name?: string | undefined;
-    link?: string | undefined;
-    thumbNailLink?: string | undefined;
-
-    constructor(data?: IMediaGroupItemDto) {
-        if (data) {
-            for (var property in data) {
-                if (data.hasOwnProperty(property))
-                    (<any>this)[property] = (<any>data)[property];
-            }
-        }
-    }
-
-    init(_data?: any) {
-        if (_data) {
-            this.attachmentType = _data["attachmentType"];
-            this.id = _data["id"];
-            this.name = _data["name"];
-            this.link = _data["link"];
-            this.thumbNailLink = _data["thumbNailLink"];
-        }
-    }
-
-    static fromJS(data: any): MediaGroupItemDto {
-        data = typeof data === 'object' ? data : {};
-        let result = new MediaGroupItemDto();
-        result.init(data);
-        return result;
-    }
-
-    toJSON(data?: any) {
-        data = typeof data === 'object' ? data : {};
-        data["attachmentType"] = this.attachmentType;
-        data["id"] = this.id;
-        data["name"] = this.name;
-        data["link"] = this.link;
-        data["thumbNailLink"] = this.thumbNailLink;
-        return data;
-    }
-}
-
-export interface IMediaGroupItemDto {
-    attachmentType?: string | undefined;
-    id?: string | undefined;
-    name?: string | undefined;
-    link?: string | undefined;
-    thumbNailLink?: string | undefined;
-}
-
-export class GetDocumentQuery extends Request implements IGetDocumentQuery {
-    id?: string | undefined;
-
-    constructor(data?: IGetDocumentQuery) {
-        super(data);
-    }
-
-    override init(_data?: any) {
-        super.init(_data);
-        if (_data) {
-            this.id = _data["id"];
-        }
-    }
-
-    static override fromJS(data: any): GetDocumentQuery {
-        data = typeof data === 'object' ? data : {};
-        let result = new GetDocumentQuery();
-        result.init(data);
-        return result;
-    }
-
-    override toJSON(data?: any) {
-        data = typeof data === 'object' ? data : {};
-        data["id"] = this.id;
-        super.toJSON(data);
-        return data;
-    }
-}
-
-export interface IGetDocumentQuery extends IRequest {
-    id?: string | undefined;
-}
-
-export class GetDocumentResponseOfInspectionTemplate extends AppResponse implements IGetDocumentResponseOfInspectionTemplate {
-    document?: InspectionTemplate | undefined;
-
-    constructor(data?: IGetDocumentResponseOfInspectionTemplate) {
-        super(data);
-    }
-
-    override init(_data?: any) {
-        super.init(_data);
-        if (_data) {
-            this.document = _data["document"] ? InspectionTemplate.fromJS(_data["document"]) : <any>undefined;
-        }
-    }
-
-    static override fromJS(data: any): GetDocumentResponseOfInspectionTemplate {
-        data = typeof data === 'object' ? data : {};
-        let result = new GetDocumentResponseOfInspectionTemplate();
-        result.init(data);
-        return result;
-    }
-
-    override toJSON(data?: any) {
-        data = typeof data === 'object' ? data : {};
-        data["document"] = this.document ? this.document.toJSON() : <any>undefined;
-        super.toJSON(data);
-        return data;
-    }
-}
-
-export interface IGetDocumentResponseOfInspectionTemplate extends IAppResponse {
-    document?: InspectionTemplate | undefined;
+export interface IStoreDocumentCommandOfMediaFile extends IRequest {
+    document?: MediaFile | undefined;
 }
 
 export class DeleteDocumentCommand extends Request implements IDeleteDocumentCommand {
@@ -1536,186 +855,6 @@ export class DeleteDocumentCommand extends Request implements IDeleteDocumentCom
 
 export interface IDeleteDocumentCommand extends IRequest {
     id?: string | undefined;
-}
-
-export class DeleteMediaItemCommand extends Request implements IDeleteMediaItemCommand {
-    id?: string | undefined;
-    name?: string | undefined;
-
-    constructor(data?: IDeleteMediaItemCommand) {
-        super(data);
-    }
-
-    override init(_data?: any) {
-        super.init(_data);
-        if (_data) {
-            this.id = _data["id"];
-            this.name = _data["name"];
-        }
-    }
-
-    static override fromJS(data: any): DeleteMediaItemCommand {
-        data = typeof data === 'object' ? data : {};
-        let result = new DeleteMediaItemCommand();
-        result.init(data);
-        return result;
-    }
-
-    override toJSON(data?: any) {
-        data = typeof data === 'object' ? data : {};
-        data["id"] = this.id;
-        data["name"] = this.name;
-        super.toJSON(data);
-        return data;
-    }
-}
-
-export interface IDeleteMediaItemCommand extends IRequest {
-    id?: string | undefined;
-    name?: string | undefined;
-}
-
-export class StoreDocumentResponseOfMediaFile extends AppResponse implements IStoreDocumentResponseOfMediaFile {
-    document?: MediaFile | undefined;
-
-    constructor(data?: IStoreDocumentResponseOfMediaFile) {
-        super(data);
-    }
-
-    override init(_data?: any) {
-        super.init(_data);
-        if (_data) {
-            this.document = _data["document"] ? MediaFile.fromJS(_data["document"]) : <any>undefined;
-        }
-    }
-
-    static override fromJS(data: any): StoreDocumentResponseOfMediaFile {
-        data = typeof data === 'object' ? data : {};
-        let result = new StoreDocumentResponseOfMediaFile();
-        result.init(data);
-        return result;
-    }
-
-    override toJSON(data?: any) {
-        data = typeof data === 'object' ? data : {};
-        data["document"] = this.document ? this.document.toJSON() : <any>undefined;
-        super.toJSON(data);
-        return data;
-    }
-}
-
-export interface IStoreDocumentResponseOfMediaFile extends IAppResponse {
-    document?: MediaFile | undefined;
-}
-
-export class MediaFile extends BaseEntity implements IMediaFile {
-    fileSize!: number;
-    width!: number;
-    height!: number;
-    altText?: string | undefined;
-    description?: string | undefined;
-    fileName?: string | undefined;
-    tags?: string | undefined;
-    fileType?: string | undefined;
-    title?: string | undefined;
-    parentEntity?: string | undefined;
-    parentEntityId?: string | undefined;
-    blobLink?: string | undefined;
-
-    constructor(data?: IMediaFile) {
-        super(data);
-    }
-
-    override init(_data?: any) {
-        super.init(_data);
-        if (_data) {
-            this.fileSize = _data["fileSize"];
-            this.width = _data["width"];
-            this.height = _data["height"];
-            this.altText = _data["altText"];
-            this.description = _data["description"];
-            this.fileName = _data["fileName"];
-            this.tags = _data["tags"];
-            this.fileType = _data["fileType"];
-            this.title = _data["title"];
-            this.parentEntity = _data["parentEntity"];
-            this.parentEntityId = _data["parentEntityId"];
-            this.blobLink = _data["blobLink"];
-        }
-    }
-
-    static override fromJS(data: any): MediaFile {
-        data = typeof data === 'object' ? data : {};
-        let result = new MediaFile();
-        result.init(data);
-        return result;
-    }
-
-    override toJSON(data?: any) {
-        data = typeof data === 'object' ? data : {};
-        data["fileSize"] = this.fileSize;
-        data["width"] = this.width;
-        data["height"] = this.height;
-        data["altText"] = this.altText;
-        data["description"] = this.description;
-        data["fileName"] = this.fileName;
-        data["tags"] = this.tags;
-        data["fileType"] = this.fileType;
-        data["title"] = this.title;
-        data["parentEntity"] = this.parentEntity;
-        data["parentEntityId"] = this.parentEntityId;
-        data["blobLink"] = this.blobLink;
-        super.toJSON(data);
-        return data;
-    }
-}
-
-export interface IMediaFile extends IBaseEntity {
-    fileSize: number;
-    width: number;
-    height: number;
-    altText?: string | undefined;
-    description?: string | undefined;
-    fileName?: string | undefined;
-    tags?: string | undefined;
-    fileType?: string | undefined;
-    title?: string | undefined;
-    parentEntity?: string | undefined;
-    parentEntityId?: string | undefined;
-    blobLink?: string | undefined;
-}
-
-export class StoreDocumentCommandOfMediaFile extends Request implements IStoreDocumentCommandOfMediaFile {
-    document?: MediaFile | undefined;
-
-    constructor(data?: IStoreDocumentCommandOfMediaFile) {
-        super(data);
-    }
-
-    override init(_data?: any) {
-        super.init(_data);
-        if (_data) {
-            this.document = _data["document"] ? MediaFile.fromJS(_data["document"]) : <any>undefined;
-        }
-    }
-
-    static override fromJS(data: any): StoreDocumentCommandOfMediaFile {
-        data = typeof data === 'object' ? data : {};
-        let result = new StoreDocumentCommandOfMediaFile();
-        result.init(data);
-        return result;
-    }
-
-    override toJSON(data?: any) {
-        data = typeof data === 'object' ? data : {};
-        data["document"] = this.document ? this.document.toJSON() : <any>undefined;
-        super.toJSON(data);
-        return data;
-    }
-}
-
-export interface IStoreDocumentCommandOfMediaFile extends IRequest {
-    document?: MediaFile | undefined;
 }
 
 export class GetDocumentsResponseOfMediaFile extends AppResponse implements IGetDocumentsResponseOfMediaFile {
@@ -1937,6 +1076,118 @@ export class GetMediaGroupForEntityResponse extends AppResponse implements IGetM
 
 export interface IGetMediaGroupForEntityResponse extends IAppResponse {
     mediaGroup?: MediaGroupDto | undefined;
+}
+
+export class MediaGroupDto implements IMediaGroupDto {
+    id?: string | undefined;
+    items?: MediaGroupItemDto[] | undefined;
+    name?: string | undefined;
+    parentId?: string | undefined;
+    parentObjectType?: string | undefined;
+
+    constructor(data?: IMediaGroupDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.id = _data["id"];
+            if (Array.isArray(_data["items"])) {
+                this.items = [] as any;
+                for (let item of _data["items"])
+                    this.items!.push(MediaGroupItemDto.fromJS(item));
+            }
+            this.name = _data["name"];
+            this.parentId = _data["parentId"];
+            this.parentObjectType = _data["parentObjectType"];
+        }
+    }
+
+    static fromJS(data: any): MediaGroupDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new MediaGroupDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["id"] = this.id;
+        if (Array.isArray(this.items)) {
+            data["items"] = [];
+            for (let item of this.items)
+                data["items"].push(item.toJSON());
+        }
+        data["name"] = this.name;
+        data["parentId"] = this.parentId;
+        data["parentObjectType"] = this.parentObjectType;
+        return data;
+    }
+}
+
+export interface IMediaGroupDto {
+    id?: string | undefined;
+    items?: MediaGroupItemDto[] | undefined;
+    name?: string | undefined;
+    parentId?: string | undefined;
+    parentObjectType?: string | undefined;
+}
+
+export class MediaGroupItemDto implements IMediaGroupItemDto {
+    attachmentType?: string | undefined;
+    id?: string | undefined;
+    name?: string | undefined;
+    link?: string | undefined;
+    thumbNailLink?: string | undefined;
+
+    constructor(data?: IMediaGroupItemDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.attachmentType = _data["attachmentType"];
+            this.id = _data["id"];
+            this.name = _data["name"];
+            this.link = _data["link"];
+            this.thumbNailLink = _data["thumbNailLink"];
+        }
+    }
+
+    static fromJS(data: any): MediaGroupItemDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new MediaGroupItemDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["attachmentType"] = this.attachmentType;
+        data["id"] = this.id;
+        data["name"] = this.name;
+        data["link"] = this.link;
+        data["thumbNailLink"] = this.thumbNailLink;
+        return data;
+    }
+}
+
+export interface IMediaGroupItemDto {
+    attachmentType?: string | undefined;
+    id?: string | undefined;
+    name?: string | undefined;
+    link?: string | undefined;
+    thumbNailLink?: string | undefined;
 }
 
 export class GetMediaGroupForEntityQuery extends Request implements IGetMediaGroupForEntityQuery {
@@ -2221,6 +1472,55 @@ export interface IGetDocumentsResponseOfTimeSheet extends IAppResponse {
     lastItemOnPage: number;
 }
 
+export class GetDocumentsQuery extends Request implements IGetDocumentsQuery {
+    first!: number;
+    rows!: number;
+    page!: number;
+    sortField?: string | undefined;
+    sortOrder?: number | undefined;
+
+    constructor(data?: IGetDocumentsQuery) {
+        super(data);
+    }
+
+    override init(_data?: any) {
+        super.init(_data);
+        if (_data) {
+            this.first = _data["first"];
+            this.rows = _data["rows"];
+            this.page = _data["page"];
+            this.sortField = _data["sortField"];
+            this.sortOrder = _data["sortOrder"];
+        }
+    }
+
+    static override fromJS(data: any): GetDocumentsQuery {
+        data = typeof data === 'object' ? data : {};
+        let result = new GetDocumentsQuery();
+        result.init(data);
+        return result;
+    }
+
+    override toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["first"] = this.first;
+        data["rows"] = this.rows;
+        data["page"] = this.page;
+        data["sortField"] = this.sortField;
+        data["sortOrder"] = this.sortOrder;
+        super.toJSON(data);
+        return data;
+    }
+}
+
+export interface IGetDocumentsQuery extends IRequest {
+    first: number;
+    rows: number;
+    page: number;
+    sortField?: string | undefined;
+    sortOrder?: number | undefined;
+}
+
 export class GetDocumentResponseOfTimeSheet extends AppResponse implements IGetDocumentResponseOfTimeSheet {
     document?: TimeSheet | undefined;
 
@@ -2252,6 +1552,39 @@ export class GetDocumentResponseOfTimeSheet extends AppResponse implements IGetD
 
 export interface IGetDocumentResponseOfTimeSheet extends IAppResponse {
     document?: TimeSheet | undefined;
+}
+
+export class GetDocumentQuery extends Request implements IGetDocumentQuery {
+    id?: string | undefined;
+
+    constructor(data?: IGetDocumentQuery) {
+        super(data);
+    }
+
+    override init(_data?: any) {
+        super.init(_data);
+        if (_data) {
+            this.id = _data["id"];
+        }
+    }
+
+    static override fromJS(data: any): GetDocumentQuery {
+        data = typeof data === 'object' ? data : {};
+        let result = new GetDocumentQuery();
+        result.init(data);
+        return result;
+    }
+
+    override toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["id"] = this.id;
+        super.toJSON(data);
+        return data;
+    }
+}
+
+export interface IGetDocumentQuery extends IRequest {
+    id?: string | undefined;
 }
 
 export interface FileResponse {
