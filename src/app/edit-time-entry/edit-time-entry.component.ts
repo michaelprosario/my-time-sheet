@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { AbstractValidator } from 'fluent-ts-validator';
-import { TimeEntry } from '../core/entities/entities';
+import { TimeEntry } from '../core/services/server-clients';
 
 class TimeEntryValidator extends AbstractValidator<TimeEntry> {
   constructor() {
