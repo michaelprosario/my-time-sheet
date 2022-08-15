@@ -1,9 +1,12 @@
 // This file can be replaced during build by using the `fileReplacements` array.
 // `ng build` replaces `environment.ts` with `environment.prod.ts`.
 // The list of file replacements can be found in `angular.json`.
+let urlParts = window.location.href.split('/');
+let baseUrl = urlParts[0] + "//" + urlParts[2];
 
 export const environment = {
-  production: false
+  production: false,
+  API_URL: baseUrl
 };
 
 /*
