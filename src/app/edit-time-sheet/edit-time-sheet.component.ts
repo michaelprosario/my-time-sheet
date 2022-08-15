@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { v4 as uuidv4 } from 'uuid';
-import { GetDocumentQuery, GetDocumentsQuery, StoreDocumentCommandOfTimeSheet, TimeEntry, TimeSheet } from '../core/services/server-clients';
+import { DeleteDocumentCommand, GetDocumentQuery, GetDocumentsQuery, StoreDocumentCommandOfTimeSheet, TimeEntry, TimeSheet } from '../core/services/server-clients';
 import { TimeSheetsService } from '../core/services/time-sheets-service';
 import { EditTimeEntryComponent } from '../edit-time-entry/edit-time-entry.component';
 
@@ -53,6 +53,25 @@ export class EditTimeSheetComponent implements OnInit {
     else {
       alert('error in loading record');
       console.log(getResponse);
+    }
+  }
+
+  async onDeleteTimeSheet(){
+
+    if(!confirm("Press OK to delete time sheet")){
+      return;
+    }
+
+    const command = new DeleteDocumentCommand();
+    command.id = this.timeSheet.id;
+    command.userId = this.getUserId();
+    const response = await this.timeSheetService.delete(command);
+    if(response.code === 200){
+      alert('Time sheet deleted');
+      this.onTimeSheets();
+    }else{
+      alert('Error deleting time sheet')
+      console.log(response);
     }
   }
 
