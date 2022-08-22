@@ -5,6 +5,11 @@ import { DeleteDocumentCommand, GetDocumentQuery, GetDocumentsQuery, StoreDocume
 import { TimeSheetsService } from '../core/services/time-sheets-service';
 import { EditTimeEntryComponent } from '../edit-time-entry/edit-time-entry.component';
 
+export class ProjectHoursItem{
+  projectId: string = "";
+  totalHours: number = 0;
+}
+
 @Component({
   selector: 'app-edit-time-sheet',
   templateUrl: './edit-time-sheet.component.html',
@@ -14,6 +19,8 @@ export class EditTimeSheetComponent implements OnInit {
 
   timeSheet: TimeSheet;
   currentTimeEntry: TimeEntry | undefined;
+  projectHoursItems: Array<ProjectHoursItem> = [];
+  totalHours: number = 0;
   @ViewChild('editTimeEntry') editTimeEntry : EditTimeEntryComponent | undefined;
   getUserId(){
     return "user";
@@ -39,6 +46,39 @@ export class EditTimeSheetComponent implements OnInit {
     }
   }
 
+  updateTimeSheetSummary(){
+    if(!this.timeSheet.entries)
+      return;
+    
+    let projects = Array<string>();
+    for(let entry of this.timeSheet.entries)
+    {
+      if(entry.projectId && !projects.includes(entry.projectId))
+      {
+        projects.push(entry.projectId)
+      }
+    }    
+    
+    this.projectHoursItems = [];
+    this.totalHours = 0;
+    for(let project of projects)
+    {
+      // find the list of project entries for project ..
+      let projectItems = this.timeSheet.entries.filter(r => r.projectId === project);
+      let sum = 0;
+      for(let projectItem of projectItems)
+      {
+        sum += projectItem.hours;
+      }
+
+      let projectHoursItem = new ProjectHoursItem();
+      projectHoursItem.projectId = project;
+      projectHoursItem.totalHours = sum;    
+      this.projectHoursItems.push(projectHoursItem);
+      this.totalHours += sum;
+    }
+  }
+
   private async loadExistingRecord() {
     const id = this.getPropertyFromUrl('id');
 
@@ -48,6 +88,7 @@ export class EditTimeSheetComponent implements OnInit {
     const getResponse = await this.timeSheetService.get(query);
     if (getResponse?.code == 200) {
       this.timeSheet = getResponse.document as TimeSheet;
+      this.updateTimeSheetSummary();
     }
 
     else {
@@ -123,8 +164,10 @@ export class EditTimeSheetComponent implements OnInit {
   onDeleteEntry(timeEntry: TimeEntry){    
     if(confirm("Press OK to delete record")){
       const recordToDelete = this.timeSheet.entries?.findIndex(r => r.id === timeEntry.id);
-      if(recordToDelete || recordToDelete === 0)
+      if(recordToDelete || recordToDelete === 0){
         this.timeSheet.entries?.splice(recordToDelete, 1);
+        this.updateTimeSheetSummary();
+      }
     }
   }
 
@@ -145,6 +188,7 @@ export class EditTimeSheetComponent implements OnInit {
     }
 
     this.currentTimeEntry = undefined;
+    this.updateTimeSheetSummary()
   }
 
   private makeNewTimeSheet() {
