@@ -25,7 +25,7 @@ export class ListTimeSheetsComponent implements OnInit {
     query.rows = 512;
     query.page = 1;
 
-    const listResponse = await this.timeSheetsService.getList(query)
+    const listResponse = await this.timeSheetsService.getList(query);
     if(listResponse && listResponse.code === 200)
     {
       this.records = listResponse.documents

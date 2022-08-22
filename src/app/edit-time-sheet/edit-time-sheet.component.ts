@@ -46,7 +46,7 @@ export class EditTimeSheetComponent implements OnInit {
     query.userId = this.getUserId();
     query.id = id;
     const getResponse = await this.timeSheetService.get(query);
-    if (getResponse.code == 200) {
+    if (getResponse?.code == 200) {
       this.timeSheet = getResponse.document as TimeSheet;
     }
 
@@ -66,7 +66,7 @@ export class EditTimeSheetComponent implements OnInit {
     command.id = this.timeSheet.id;
     command.userId = this.getUserId();
     const response = await this.timeSheetService.delete(command);
-    if(response.code === 200){
+    if(response?.code === 200){
       alert('Time sheet deleted');
       this.onTimeSheets();
     }else{
@@ -82,7 +82,7 @@ export class EditTimeSheetComponent implements OnInit {
     command.document = this.timeSheet;
     command.userId = "mrosario";
     const storeResponse = await this.timeSheetService.storeDocument(command);
-    if(storeResponse.code === 200){
+    if(storeResponse?.code === 200){
       alert('Time sheet saved');
     }else{
       alert('Error saving time sheet');
